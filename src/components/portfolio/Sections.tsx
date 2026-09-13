@@ -26,19 +26,19 @@ function SectionHeader({
   return (
     <div className="mb-10 sm:mb-12">
       <div className="flex items-center gap-2 mb-3">
-        <span className="font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">
+        <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[#2563EB]">
           {index}
         </span>
-        <span className="text-white/20">•</span>
-        <span className="font-mono text-xs uppercase tracking-wider text-slate-400">
+        <span className="text-slate-300">•</span>
+        <span className="font-mono text-xs uppercase tracking-wider text-[#64748B]">
           {eyebrow}
         </span>
       </div>
-      <h2 className="text-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white max-w-3xl">
+      <h2 className="text-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#0F172A] max-w-3xl">
         {title}
       </h2>
       {description && (
-        <p className="mt-3 text-slate-400 text-base leading-relaxed max-w-2xl">
+        <p className="mt-3 text-[#475569] text-base leading-relaxed max-w-2xl">
           {description}
         </p>
       )}
@@ -49,51 +49,51 @@ function SectionHeader({
 // ---------- HERO ----------
 export function Hero() {
   return (
-    <section id="top" className="pt-20 sm:pt-28 pb-16 sm:pb-24 border-b border-white/[0.08]">
+    <section id="top" className="pt-20 sm:pt-28 pb-16 sm:pb-24 border-b border-slate-200/60 relative z-10">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-12 gap-10 md:gap-12 items-center">
           {/* Left Column: Heading & Value Proposition */}
           <div className="md:col-span-7">
-            {/* Availability Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 mb-6 backdrop-blur-md">
+            {/* "Available for Work" Status Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200/80 bg-emerald-50/90 px-3.5 py-1.5 mb-6 backdrop-blur-md shadow-2xs">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#22C55E] opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#22C55E]" />
               </span>
-              <span className="font-mono text-xs font-medium text-emerald-300">
-                Available for work · New Delhi / NCR &amp; Remote
+              <span className="font-mono text-xs font-medium text-emerald-800">
+                Available for Work · New Delhi / NCR &amp; Remote
               </span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+            <h1 className="text-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#0F172A] leading-[1.1]">
               Sarfraaj Khan
             </h1>
-            <p className="mt-3 text-xl sm:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-teal-300 to-indigo-400">
+            <p className="mt-3 text-xl sm:text-2xl font-semibold text-[#2563EB]">
               IT Systems &amp; Cloud Infrastructure Engineer
             </p>
 
             {/* Concise Value Proposition */}
-            <p className="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl">
-              Enterprise Systems Administrator with <strong className="text-white font-semibold">3.8+ years</strong> orchestrating Microsoft 365 tenants, Azure Entra ID zero-trust policies, endpoint security fleets, Windows Server, and high-uptime networks.
+            <p className="mt-5 text-base sm:text-lg text-[#475569] leading-relaxed max-w-xl">
+              Enterprise Systems Administrator with <strong className="text-[#0F172A] font-semibold">3.8+ years</strong> orchestrating Microsoft 365 tenants, Azure Entra ID zero-trust policies, endpoint security fleets, Windows Server, and high-uptime networks.
             </p>
 
             {/* Primary & Secondary CTA Buttons */}
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-[0_0_24px_rgba(56,189,248,0.3)] active:scale-98 transition-all"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 active:scale-98 transition-all shadow-sm"
               >
-                <span>Explore Projects</span>
+                <span>View Projects</span>
                 <ArrowUpRight className="h-4 w-4 stroke-[2.5]" />
               </a>
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-xl glass-card px-5 py-2.5 text-sm font-medium text-white hover:border-sky-400/40 active:scale-98 transition-all"
+                className="inline-flex items-center gap-2 rounded-xl bg-white/70 border border-slate-200/80 px-5 py-2.5 text-sm font-medium text-[#0F172A] hover:bg-white hover:border-slate-300 active:scale-98 transition-all shadow-xs backdrop-blur-md"
               >
-                <Mail className="h-4 w-4 text-sky-400" />
-                <span>Contact Direct</span>
+                <Mail className="h-4 w-4 text-[#2563EB]" />
+                <span>Get in Touch</span>
               </a>
 
               <a
@@ -101,56 +101,53 @@ export function Hero() {
                 download="Sarfraaj-Khan-Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl glass-card px-5 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:border-sky-400/40 active:scale-98 transition-all"
+                className="inline-flex items-center gap-2 rounded-xl bg-white/70 border border-slate-200/80 px-5 py-2.5 text-sm font-medium text-[#475569] hover:text-[#0F172A] hover:bg-white active:scale-98 transition-all shadow-xs backdrop-blur-md"
               >
-                <Download className="h-4 w-4 text-slate-400" />
+                <Download className="h-4 w-4 text-[#64748B]" />
                 <span>Resume (PDF)</span>
               </a>
             </div>
 
             {/* Contact Quick Info */}
-            <div className="mt-8 pt-6 border-t border-white/[0.08] flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400">
+            <div className="mt-8 pt-6 border-t border-slate-200/60 flex flex-wrap items-center gap-4 text-xs font-mono text-[#64748B]">
               <a
                 href="mailto:sarfaraajsince2004@gmail.com"
-                className="hover:text-sky-300 transition-colors hover:underline"
+                className="hover:text-[#2563EB] transition-colors hover:underline"
               >
                 sarfaraajsince2004@gmail.com
               </a>
-              <span className="text-white/20">•</span>
+              <span className="text-slate-300">•</span>
               <a
                 href="https://wa.me/918826457998"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-sky-300 transition-colors hover:underline"
+                className="hover:text-[#2563EB] transition-colors hover:underline"
               >
                 +91 88264 57998
               </a>
-              <span className="text-white/20">•</span>
+              <span className="text-slate-300">•</span>
               <span>New Delhi, India</span>
             </div>
           </div>
 
-          {/* Right Column: Clean Studio Portrait in Floating Glass Card */}
+          {/* Right Column: Clean Studio Portrait in Frosted Glass Card */}
           <div className="md:col-span-5">
-            <div className="relative mx-auto max-w-[340px] rounded-2xl glass-card p-3.5 shadow-[0_16px_40px_rgba(0,0,0,0.6)] group">
-              {/* Subtle back ambient glow */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-sky-500/20 to-indigo-500/10 blur-xl opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none" />
-
-              <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-slate-900 border border-white/10">
+            <div className="relative mx-auto max-w-[340px] rounded-2xl glass-card p-3.5 shadow-sm group">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-slate-100 border border-slate-200/80">
                 <img
                   src={AVATAR}
                   alt="Sarfraaj Khan"
-                  className="h-full w-full object-cover object-top filter contrast-[1.03] group-hover:scale-105 transition-transform duration-500"
+                  className="h-full w-full object-cover object-top filter contrast-[1.02] group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div className="relative mt-3.5 px-1 py-1 text-left">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-sm text-white">Sarfraaj Khan</span>
-                  <span className="font-mono text-xs text-sky-400">IT Systems Executive</span>
+                  <span className="font-semibold text-sm text-[#0F172A]">Sarfraaj Khan</span>
+                  <span className="font-mono text-xs text-[#2563EB] font-medium">IT Systems Engineer</span>
                 </div>
-                <div className="flex items-center justify-between mt-1 text-xs font-mono text-slate-400">
+                <div className="flex items-center justify-between mt-1 text-xs font-mono text-[#64748B]">
                   <span>Prasatti Group · M365 &amp; Infra</span>
-                  <span className="text-emerald-400 flex items-center gap-1">
+                  <span className="text-emerald-700 flex items-center gap-1 font-semibold">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     99.8% SLA
                   </span>
@@ -167,7 +164,7 @@ export function Hero() {
 // ---------- ABOUT ----------
 export function About() {
   return (
-    <section id="about" className="py-16 sm:py-24 border-b border-white/[0.08]">
+    <section id="about" className="py-16 sm:py-24 border-b border-slate-200/60 relative z-10">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         <SectionHeader
           index="01"
@@ -178,41 +175,41 @@ export function About() {
 
         <div className="grid md:grid-cols-12 gap-8 items-start">
           {/* Left Column: Narrative */}
-          <div className="md:col-span-7 space-y-4 text-base text-slate-300 leading-relaxed">
+          <div className="md:col-span-7 space-y-4 text-base text-[#475569] leading-relaxed">
             <p>
-              I specialize in maintaining dependable enterprise infrastructure where uptime and security are non-negotiable. Over <strong className="text-white">3.8+ years</strong> in active service delivery, I have managed heterogeneous environments supporting 500+ endpoints across Windows 11, macOS, and mobile devices.
+              I specialize in maintaining dependable enterprise infrastructure where uptime and security are non-negotiable. Over <strong className="text-[#0F172A]">3.8+ years</strong> in active service delivery, I have managed heterogeneous environments supporting 500+ endpoints across Windows 11, macOS, and mobile devices.
             </p>
             <p>
               My focus spans end-to-end administration: Microsoft 365, Azure Entra ID (SSO, MFA, Conditional Access), fleet-wide EDR cloud defense, SonicWall security policies, and rapid L1/L2 incident resolution.
             </p>
 
             {/* Diagnostic / Health terminal card */}
-            <div className="mt-6 rounded-xl border border-white/10 bg-[#0B0E14]/80 backdrop-blur-md p-4 font-mono text-xs text-slate-200 shadow-inner">
-              <div className="flex items-center justify-between pb-2 mb-3 border-b border-white/10 text-slate-400">
+            <div className="mt-6 rounded-2xl border border-slate-200/80 bg-white/80 backdrop-blur-md p-4 font-mono text-xs text-[#0F172A] shadow-xs">
+              <div className="flex items-center justify-between pb-2 mb-3 border-b border-slate-200/60 text-[#64748B]">
                 <span className="flex items-center gap-2">
-                  <Terminal className="h-3.5 w-3.5 text-sky-400" />
+                  <Terminal className="h-3.5 w-3.5 text-[#2563EB]" />
                   sarfraaj@infra-health:~
                 </span>
-                <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
+                <span className="text-emerald-700 font-semibold flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  TELEMETRY LIVE
+                  SYSTEM HEALTHY
                 </span>
               </div>
-              <div className="space-y-1.5 text-slate-300">
+              <div className="space-y-1.5 text-[#334155]">
                 <p className="flex items-center gap-2">
-                  <span className="text-emerald-400">✓</span>
+                  <span className="text-emerald-600 font-bold">✓</span>
                   <span>Microsoft 365 Tenant: All Services Operational</span>
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="text-emerald-400">✓</span>
+                  <span className="text-emerald-600 font-bold">✓</span>
                   <span>Azure Entra ID: Zero-Trust MFA Enforced (100%)</span>
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="text-emerald-400">✓</span>
+                  <span className="text-emerald-600 font-bold">✓</span>
                   <span>Endpoint Fleet: 500+ Devices Shielded via EDR</span>
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="text-emerald-400">✓</span>
+                  <span className="text-emerald-600 font-bold">✓</span>
                   <span>Network Gateway SLA: 99.8% Resolution Fidelity</span>
                 </p>
               </div>
@@ -227,12 +224,12 @@ export function About() {
               { num: "1,200+", label: "Tickets Resolved", desc: "L1/L2 SLA compliance" },
               { num: "99.8%", label: "SLA Adherence", desc: "Resolution fidelity" },
             ].map((m) => (
-              <div key={m.label} className="glass-card p-5 group hover:border-sky-400/40">
-                <div className="text-display text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">
+              <div key={m.label} className="glass-card p-5 group hover:border-[#2563EB]/40">
+                <div className="text-display text-3xl sm:text-4xl font-extrabold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
                   {m.num}
                 </div>
-                <div className="mt-2 text-sm font-semibold text-white">{m.label}</div>
-                <div className="mt-0.5 text-xs text-slate-400">{m.desc}</div>
+                <div className="mt-2 text-sm font-semibold text-[#0F172A]">{m.label}</div>
+                <div className="mt-0.5 text-xs text-[#64748B]">{m.desc}</div>
               </div>
             ))}
           </div>
@@ -272,12 +269,12 @@ export function Services() {
   ];
 
   return (
-    <section id="services" className="py-16 sm:py-24 border-b border-white/[0.08]">
+    <section id="services" className="py-16 sm:py-24 border-b border-slate-200/60 relative z-10">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         <SectionHeader
           index="02"
-          eyebrow="Services & Operational Craft"
-          title="Core disciplines engineered for 99.8% uptime & zero breaches."
+          eyebrow="Core Competencies"
+          title="Disciplines engineered for 99.8% uptime & zero breaches."
           description="Comprehensive technical capabilities spanning cloud tenancy, endpoint fleet defense, network infrastructure, and mission-critical systems."
         />
 
@@ -285,24 +282,21 @@ export function Services() {
           {services.map((s) => (
             <div
               key={s.title}
-              className="glass-card p-6 sm:p-7 flex flex-col justify-between group relative overflow-hidden"
+              className="glass-card p-6 sm:p-7 flex flex-col justify-between group"
             >
-              {/* Soft ambient corner glow */}
-              <div className="absolute top-0 right-0 w-36 h-36 bg-sky-500/5 rounded-full blur-2xl group-hover:bg-sky-500/10 transition-colors pointer-events-none" />
-
               <div>
-                <div className="h-11 w-11 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 grid place-items-center mb-5 group-hover:border-sky-400/50 group-hover:scale-105 transition-all">
+                <div className="h-11 w-11 rounded-xl bg-blue-50 border border-blue-200/70 text-[#2563EB] grid place-items-center mb-5 group-hover:scale-105 transition-all">
                   <s.icon className="h-5 w-5" />
                 </div>
-                <h3 className="text-display text-xl font-bold text-white group-hover:text-sky-300 transition-colors">
+                <h3 className="text-display text-xl font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
                   {s.title}
                 </h3>
-                <p className="mt-2.5 text-sm text-slate-400 leading-relaxed">
+                <p className="mt-2.5 text-sm text-[#475569] leading-relaxed">
                   {s.desc}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/[0.08] flex flex-wrap gap-2">
+              <div className="mt-6 pt-4 border-t border-slate-200/60 flex flex-wrap gap-2">
                 {s.tags.map((t) => (
                   <span key={t} className="badge-tag">
                     {t}
@@ -409,7 +403,7 @@ export function Projects() {
       : projects.filter((p) => p.category === activeTab);
 
   return (
-    <section id="projects" className="py-16 sm:py-24 border-b border-white/[0.08]">
+    <section id="projects" className="py-16 sm:py-24 border-b border-slate-200/60">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         <SectionHeader
           index="03"
@@ -419,7 +413,7 @@ export function Projects() {
         />
 
         {/* Multi-Category Interactive Filter Tabs */}
-        <div className="mb-10 flex flex-wrap items-center gap-2 border-b border-white/[0.08] pb-4">
+        <div className="mb-10 flex flex-wrap items-center gap-2 border-b border-slate-200/80 pb-4">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -429,8 +423,8 @@ export function Projects() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`relative px-4 py-2 rounded-xl font-mono text-xs font-medium transition-all cursor-pointer ${
                   isActive
-                    ? "bg-sky-500/20 text-sky-300 border border-sky-400/50 shadow-[0_0_16px_rgba(56,189,248,0.25)]"
-                    : "bg-white/[0.03] text-slate-400 border border-white/[0.06] hover:text-white hover:bg-white/[0.08]"
+                    ? "bg-blue-50 text-[#2563EB] border border-[#2563EB]/40 shadow-xs"
+                    : "bg-white/70 text-[#64748B] border border-slate-200/80 hover:text-[#0F172A] hover:bg-white"
                 }`}
               >
                 {tab.label}
@@ -447,18 +441,18 @@ export function Projects() {
               className="glass-card p-6 sm:p-7 flex flex-col justify-between group relative overflow-hidden"
             >
               {/* Subtle card glow */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 rounded-full blur-2xl group-hover:bg-sky-500/10 transition-colors pointer-events-none" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition-colors pointer-events-none" />
 
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="badge-tag">{p.tag}</span>
-                  <span className="text-[11px] font-mono text-slate-400">Enterprise</span>
+                  <span className="text-[11px] font-mono text-[#64748B]">Enterprise</span>
                 </div>
 
-                <h3 className="text-display text-lg font-bold text-white group-hover:text-sky-300 leading-snug transition-colors">
+                <h3 className="text-display text-lg font-bold text-[#0F172A] group-hover:text-[#2563EB] leading-snug transition-colors">
                   {p.title}
                 </h3>
-                <p className="mt-2.5 text-xs sm:text-sm text-slate-400 leading-relaxed">
+                <p className="mt-2.5 text-xs sm:text-sm text-[#475569] leading-relaxed">
                   {p.overview}
                 </p>
 
@@ -467,7 +461,7 @@ export function Projects() {
                   {p.stack.map((st) => (
                     <span
                       key={st}
-                      className="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-slate-300 border border-white/[0.06]"
+                      className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100/80 text-slate-700 border border-slate-200/80"
                     >
                       {st}
                     </span>
@@ -475,9 +469,9 @@ export function Projects() {
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/[0.08]">
-                <div className="text-xs text-slate-200 font-medium mb-4 flex items-start gap-1.5">
-                  <span className="text-emerald-400 font-bold shrink-0">✓</span>
+              <div className="mt-6 pt-4 border-t border-slate-200/70">
+                <div className="text-xs text-slate-700 font-medium mb-4 flex items-start gap-1.5">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
                   <span>{p.outcome}</span>
                 </div>
 
@@ -486,14 +480,14 @@ export function Projects() {
                     href={p.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] py-2 px-3 text-xs font-mono font-medium text-slate-300 hover:text-white hover:bg-white/[0.08] hover:border-sky-400/40 transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200/80 bg-white/70 py-2 px-3 text-xs font-mono font-medium text-slate-700 hover:text-[#0F172A] hover:bg-white hover:border-[#2563EB]/40 transition-colors"
                   >
                     <Github className="h-3.5 w-3.5" />
                     <span>GitHub</span>
                   </a>
                   <a
                     href={p.demo}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-sky-500/20 border border-sky-400/40 py-2 px-3 text-xs font-mono font-medium text-sky-300 hover:bg-sky-500/30 hover:text-white transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-blue-50 border border-blue-200 py-2 px-3 text-xs font-mono font-medium text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-colors"
                   >
                     <span>Details</span>
                     <ArrowUpRight className="h-3.5 w-3.5" />
@@ -556,7 +550,7 @@ export function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-16 sm:py-24 border-b border-white/[0.08]">
+    <section id="skills" className="py-16 sm:py-24 border-b border-slate-200/60">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         <SectionHeader
           index="04"
@@ -569,14 +563,14 @@ export function Skills() {
           {categories.map((c) => (
             <div key={c.title} className="glass-card p-6 flex flex-col justify-between group">
               <div>
-                <h3 className="text-display text-lg font-bold text-white group-hover:text-sky-300 transition-colors">
+                <h3 className="text-display text-lg font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
                   {c.title}
                 </h3>
-                <p className="mt-1 text-xs text-slate-400 leading-relaxed">
+                <p className="mt-1 text-xs text-[#475569] leading-relaxed">
                   {c.desc}
                 </p>
 
-                <div className="mt-5 pt-4 border-t border-white/[0.08] flex flex-wrap gap-2">
+                <div className="mt-5 pt-4 border-t border-slate-200/70 flex flex-wrap gap-2">
                   {c.skills.map((sk) => (
                     <span key={sk} className="badge-tag">
                       {sk}
@@ -644,7 +638,7 @@ export function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-16 sm:py-24 border-b border-white/[0.08]">
+    <section id="experience" className="py-16 sm:py-24 border-b border-slate-200/60">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         <SectionHeader
           index="05"
@@ -655,34 +649,34 @@ export function Experience() {
 
         <div className="space-y-6">
           {jobs.map((j) => (
-            <div key={j.role} className="glass-card p-6 sm:p-8 group hover:border-sky-400/40">
+            <div key={j.role} className="glass-card p-6 sm:p-8 group hover:border-blue-400/40">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
                   <div className="flex items-center gap-2.5 flex-wrap">
-                    <h3 className="text-display text-xl sm:text-2xl font-bold text-white group-hover:text-sky-300 transition-colors">
+                    <h3 className="text-display text-xl sm:text-2xl font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">
                       {j.role}
                     </h3>
                     {j.current && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] font-medium">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Current Seat
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[11px] font-medium">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Current Seat
                       </span>
                     )}
                   </div>
-                  <div className="text-sm font-medium text-slate-300 mt-1">{j.company}</div>
+                  <div className="text-sm font-medium text-[#475569] mt-1">{j.company}</div>
                 </div>
-                <div className="font-mono text-xs text-slate-400 bg-white/[0.04] border border-white/10 px-3 py-1 rounded-md w-fit">
+                <div className="font-mono text-xs text-slate-600 bg-slate-100/90 border border-slate-200/80 px-3 py-1 rounded-md w-fit">
                   {j.period}
                 </div>
               </div>
 
-              <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed">
+              <p className="mt-4 text-sm sm:text-base text-[#475569] leading-relaxed">
                 {j.summary}
               </p>
 
-              <div className="mt-4 pt-4 border-t border-white/[0.08] space-y-2">
+              <div className="mt-4 pt-4 border-t border-slate-200/70 space-y-2">
                 {j.responsibilities.map((r) => (
-                  <div key={r} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-sky-400 mt-2 shrink-0" />
+                  <div key={r} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#2563EB] mt-2 shrink-0" />
                     <span>{r}</span>
                   </div>
                 ))}
@@ -715,7 +709,7 @@ export function Certifications() {
   ];
 
   return (
-    <section id="certifications" className="py-16 sm:py-24 border-b border-white/[0.08]">
+    <section id="certifications" className="py-16 sm:py-24 border-b border-slate-200/60">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         <SectionHeader
           index="06"
@@ -726,22 +720,22 @@ export function Certifications() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {certs.map((c) => (
-            <div key={c.name} className="glass-card p-6 flex flex-col justify-between group hover:border-sky-400/40">
+            <div key={c.name} className="glass-card p-6 flex flex-col justify-between group hover:border-blue-400/40">
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono text-xs text-sky-400 font-semibold">{c.code}</span>
+                  <span className="font-mono text-xs text-[#2563EB] font-semibold">{c.code}</span>
                   <span
                     className={`font-mono text-[11px] px-2.5 py-0.5 rounded-full border ${
                       c.status === "Certified"
-                        ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/30"
-                        : "bg-sky-500/10 text-sky-300 border-sky-500/30"
+                        ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                        : "bg-blue-50 text-[#2563EB] border-blue-200"
                     }`}
                   >
                     {c.status}
                   </span>
                 </div>
-                <h3 className="font-semibold text-base text-white group-hover:text-sky-300 transition-colors">{c.name}</h3>
-                <div className="text-xs text-slate-400 mt-1 font-mono">{c.issuer}</div>
+                <h3 className="font-semibold text-base text-[#0F172A] group-hover:text-[#2563EB] transition-colors">{c.name}</h3>
+                <div className="text-xs text-[#64748B] mt-1 font-mono">{c.issuer}</div>
               </div>
             </div>
           ))}
@@ -775,7 +769,7 @@ export function Testimonials() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 border-b border-white/[0.08]">
+    <section className="py-16 sm:py-24 border-b border-slate-200/60">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         <SectionHeader
           index="07"
@@ -785,13 +779,13 @@ export function Testimonials() {
 
         <div className="grid md:grid-cols-3 gap-6">
           {items.map((t) => (
-            <div key={t.name} className="glass-card p-6 flex flex-col justify-between group hover:border-sky-400/40">
-              <p className="text-sm text-slate-300 leading-relaxed italic">
+            <div key={t.name} className="glass-card p-6 flex flex-col justify-between group hover:border-blue-400/40">
+              <p className="text-sm text-slate-700 leading-relaxed italic">
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <div className="mt-6 pt-4 border-t border-white/[0.08]">
-                <div className="font-semibold text-sm text-white">{t.name}</div>
-                <div className="text-xs text-sky-400 font-mono mt-0.5">{t.role}</div>
+              <div className="mt-6 pt-4 border-t border-slate-200/70">
+                <div className="font-semibold text-sm text-[#0F172A]">{t.name}</div>
+                <div className="text-xs text-[#2563EB] font-mono mt-0.5">{t.role}</div>
               </div>
             </div>
           ))}
@@ -813,12 +807,12 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-16 sm:py-24 border-b border-white/[0.08]">
+    <section id="contact" className="py-16 sm:py-24 border-b border-slate-200/60">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         <SectionHeader
           index="08"
           eyebrow="Contact & Connect"
-          title="Let's engineer reliable infrastructure together."
+          title="Have a project in mind? Let's connect."
           description="Open to enterprise IT executive, systems administrator, and cloud infrastructure opportunities across Delhi NCR and remote."
         />
 
@@ -827,16 +821,16 @@ export function Contact() {
           <button
             type="button"
             onClick={copyEmail}
-            className="inline-flex items-center gap-2 rounded-xl glass-card px-4 py-2.5 font-mono text-xs text-white hover:border-sky-400/50 transition-all cursor-pointer shadow-sm"
+            className="inline-flex items-center gap-2 rounded-xl glass-card px-4 py-2.5 font-mono text-xs text-[#0F172A] hover:border-[#2563EB]/50 transition-all cursor-pointer shadow-xs"
           >
             {copiedEmail ? (
               <>
-                <CheckCheck className="h-4 w-4 text-emerald-400" />
-                <span className="text-emerald-300 font-semibold">Email Copied!</span>
+                <CheckCheck className="h-4 w-4 text-emerald-600" />
+                <span className="text-emerald-700 font-semibold">Email Copied!</span>
               </>
             ) : (
               <>
-                <Copy className="h-4 w-4 text-sky-400" />
+                <Copy className="h-4 w-4 text-[#2563EB]" />
                 <span>Copy: sarfaraajsince2004@gmail.com</span>
               </>
             )}
@@ -846,7 +840,7 @@ export function Contact() {
             href="https://wa.me/918826457998?text=Hi%20Sarfraaj%2C%20I%20would%20like%20to%20connect%20regarding%20an%20IT%20role."
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-2.5 font-mono text-xs text-emerald-300 hover:bg-emerald-500/20 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 font-mono text-xs text-emerald-800 hover:bg-emerald-100 transition-colors shadow-xs"
           >
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>WhatsApp Direct</span>
@@ -856,9 +850,9 @@ export function Contact() {
             href="https://www.linkedin.com/in/sarfraaj-engineer/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl glass-card px-4 py-2.5 font-mono text-xs text-slate-300 hover:text-white hover:border-sky-400/40 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 rounded-xl glass-card px-4 py-2.5 font-mono text-xs text-slate-700 hover:text-[#0F172A] hover:border-[#2563EB]/40 transition-colors shadow-xs"
           >
-            <Linkedin className="h-4 w-4 text-sky-400" />
+            <Linkedin className="h-4 w-4 text-[#2563EB]" />
             <span>LinkedIn</span>
           </a>
 
@@ -866,9 +860,9 @@ export function Contact() {
             href="https://github.com/Sarfraz882"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl glass-card px-4 py-2.5 font-mono text-xs text-slate-300 hover:text-white hover:border-sky-400/40 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 rounded-xl glass-card px-4 py-2.5 font-mono text-xs text-slate-700 hover:text-[#0F172A] hover:border-[#2563EB]/40 transition-colors shadow-xs"
           >
-            <Github className="h-4 w-4 text-slate-300" />
+            <Github className="h-4 w-4 text-slate-700" />
             <span>GitHub</span>
           </a>
         </div>
@@ -887,14 +881,14 @@ export function Contact() {
                 href={c.href}
                 target={"external" in c && c.external ? "_blank" : undefined}
                 rel={"external" in c && c.external ? "noopener noreferrer" : undefined}
-                className="glass-card p-4 flex items-center gap-3.5 hover:border-sky-400/50 transition-all block group"
+                className="glass-card p-4 flex items-center gap-3.5 hover:border-[#2563EB]/50 transition-all block group"
               >
-                <div className="h-10 w-10 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 grid place-items-center shrink-0 group-hover:scale-105 transition-transform">
+                <div className="h-10 w-10 rounded-xl bg-blue-50 border border-blue-200 text-[#2563EB] grid place-items-center shrink-0 group-hover:scale-105 transition-transform">
                   <c.icon className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">{c.label}</div>
-                  <div className="text-sm font-semibold text-white group-hover:text-sky-300 truncate transition-colors">{c.value}</div>
+                  <div className="text-[11px] font-mono text-[#64748B] uppercase tracking-wider">{c.label}</div>
+                  <div className="text-sm font-semibold text-[#0F172A] group-hover:text-[#2563EB] truncate transition-colors">{c.value}</div>
                 </div>
               </a>
             ))}
@@ -918,7 +912,7 @@ export function Contact() {
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="form-name" className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="form-name" className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5">
                   Name
                 </label>
                 <input
@@ -926,11 +920,11 @@ export function Contact() {
                   name="name"
                   required
                   placeholder="Your Name"
-                  className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-400 focus:bg-white/[0.07] transition-all"
+                  className="w-full rounded-xl border border-slate-200/80 bg-white/90 px-4 py-2.5 text-sm text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
                 />
               </div>
               <div>
-                <label htmlFor="form-email" className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="form-email" className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5">
                   Email
                 </label>
                 <input
@@ -939,25 +933,25 @@ export function Contact() {
                   type="email"
                   required
                   placeholder="you@company.com"
-                  className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-400 focus:bg-white/[0.07] transition-all"
+                  className="w-full rounded-xl border border-slate-200/80 bg-white/90 px-4 py-2.5 text-sm text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="form-company" className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+              <label htmlFor="form-company" className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5">
                 Company / Organization
               </label>
               <input
                 id="form-company"
                 name="company"
                 placeholder="Company Name"
-                className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-400 focus:bg-white/[0.07] transition-all"
+                className="w-full rounded-xl border border-slate-200/80 bg-white/90 px-4 py-2.5 text-sm text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
               />
             </div>
 
             <div>
-              <label htmlFor="form-message" className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+              <label htmlFor="form-message" className="block text-xs font-mono uppercase tracking-wider text-slate-600 mb-1.5">
                 Message
               </label>
               <textarea
@@ -966,17 +960,17 @@ export function Contact() {
                 required
                 rows={4}
                 placeholder="How can I assist your enterprise IT infrastructure?"
-                className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-400 focus:bg-white/[0.07] transition-all resize-none"
+                className="w-full rounded-xl border border-slate-200/80 bg-white/90 px-4 py-2.5 text-sm text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all resize-none"
               />
             </div>
 
             <div className="flex items-center justify-between pt-2">
-              <span className="text-xs text-slate-400 font-mono">
+              <span className="text-xs text-[#64748B] font-mono">
                 {sent ? "✓ Mail client launched" : "Direct handoff to mail client"}
               </span>
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 px-6 py-2.5 text-xs font-mono uppercase tracking-wider font-semibold text-slate-950 active:scale-98 transition-all cursor-pointer shadow-[0_0_20px_rgba(56,189,248,0.25)]"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] px-6 py-2.5 text-xs font-mono uppercase tracking-wider font-semibold text-white active:scale-98 transition-all cursor-pointer shadow-sm hover:shadow-md"
               >
                 <span>Send Message</span>
                 <Send className="h-3.5 w-3.5 stroke-[2.5]" />
@@ -992,12 +986,12 @@ export function Contact() {
 // ---------- FOOTER ----------
 export function Footer() {
   return (
-    <footer className="py-12 border-t border-white/[0.08] bg-black/40 backdrop-blur-md">
+    <footer className="py-12 border-t border-slate-200/60 bg-white/60 backdrop-blur-md text-[#64748B]">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-slate-300">All Systems Operational · SLA 99.8%</span>
+            <span className="text-slate-700 font-medium">All Systems Operational · SLA 99.8%</span>
           </div>
           <div>
             © 2026 Sarfraaj Khan · Enterprise IT &amp; Cloud Infrastructure

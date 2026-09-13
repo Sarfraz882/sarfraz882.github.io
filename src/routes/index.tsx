@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-transparent text-slate-100 selection:bg-sky-500/30 selection:text-sky-300 relative">
+    <div className="min-h-screen bg-transparent text-[#0F172A] selection:bg-blue-100 selection:text-[#2563EB] relative">
       <AnimatedBackground />
       <Navbar />
       <main>

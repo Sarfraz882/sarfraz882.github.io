@@ -7,67 +7,111 @@ export function AnimatedBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d", { alpha: true });
+    const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
     let animationFrameId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Check prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // Grid configuration
-    const cols = Math.max(24, Math.floor(width / 45));
-    const rows = 32;
-    const spacingX = (width * 1.6) / cols;
-    const spacingZ = 42;
-
-    // Camera & Projection
-    const fov = 380;
-    const cameraY = -180;
-    const cameraZ = -100;
-
-    // Interactive state (Mouse lerp & Scroll velocity)
-    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
-    let scrollY = window.scrollY;
-    let lastScrollY = window.scrollY;
+    // Mouse lerp & scroll velocity tracking
+    const mouse = { x: width * 0.5, y: height * 0.35, targetX: width * 0.5, targetY: height * 0.35 };
     let scrollVelocity = 0;
     let smoothedVelocity = 0;
+    let lastScrollY = window.scrollY;
     let lastScrollTime = performance.now();
 
-    // Floating ambient particle stars
-    const particleCount = 45;
-    const particles: Array<{
-      x: number;
-      y: number;
-      radius: number;
-      alpha: number;
-      vx: number;
-      vy: number;
-    }> = [];
+    // Ambient floating orbs defining the organic mesh gradient
+    const orbs = [
+      {
+        baseXRatio: 0.25,
+        baseYRatio: 0.2,
+        radius: 460,
+        colorStops: [
+          { stop: 0, color: "rgba(219, 234, 254, 0.85)" }, // Ice blue
+          { stop: 0.6, color: "rgba(219, 234, 254, 0.35)" },
+          { stop: 1, color: "rgba(250, 250, 250, 0)" },
+        ],
+        speedX: 0.0006,
+        speedY: 0.0008,
+        driftRadiusX: 140,
+        driftRadiusY: 100,
+        phase: 0,
+      },
+      {
+        baseXRatio: 0.78,
+        baseYRatio: 0.28,
+        radius: 520,
+        colorStops: [
+          { stop: 0, color: "rgba(237, 233, 254, 0.8)" }, // Pale lavender
+          { stop: 0.55, color: "rgba(237, 233, 254, 0.3)" },
+          { stop: 1, color: "rgba(250, 250, 250, 0)" },
+        ],
+        speedX: 0.0005,
+        speedY: 0.0007,
+        driftRadiusX: 160,
+        driftRadiusY: 120,
+        phase: 2.1,
+      },
+      {
+        baseXRatio: 0.45,
+        baseYRatio: 0.65,
+        radius: 490,
+        colorStops: [
+          { stop: 0, color: "rgba(224, 231, 255, 0.75)" }, // Soft periwinkle
+          { stop: 0.6, color: "rgba(224, 231, 255, 0.25)" },
+          { stop: 1, color: "rgba(250, 250, 250, 0)" },
+        ],
+        speedX: 0.0007,
+        speedY: 0.0005,
+        driftRadiusX: 130,
+        driftRadiusY: 140,
+        phase: 4.2,
+      },
+      {
+        baseXRatio: 0.15,
+        baseYRatio: 0.82,
+        radius: 440,
+        colorStops: [
+          { stop: 0, color: "rgba(240, 249, 255, 0.8)" }, // Soft sky
+          { stop: 0.5, color: "rgba(240, 249, 255, 0.3)" },
+          { stop: 1, color: "rgba(250, 250, 250, 0)" },
+        ],
+        speedX: 0.0008,
+        speedY: 0.0006,
+        driftRadiusX: 110,
+        driftRadiusY: 90,
+        phase: 1.5,
+      },
+      {
+        baseXRatio: 0.85,
+        baseYRatio: 0.78,
+        radius: 470,
+        colorStops: [
+          { stop: 0, color: "rgba(245, 243, 255, 0.75)" }, // Pale violet tint
+          { stop: 0.55, color: "rgba(245, 243, 255, 0.25)" },
+          { stop: 1, color: "rgba(250, 250, 250, 0)" },
+        ],
+        speedX: 0.0006,
+        speedY: 0.0007,
+        driftRadiusX: 130,
+        driftRadiusY: 110,
+        phase: 3.4,
+      },
+    ];
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 1.5 + 0.5,
-        alpha: Math.random() * 0.4 + 0.1,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: (Math.random() - 0.5) * 0.2,
-      });
-    }
-
-    // Handle Resize
     const handleResize = () => {
       if (!canvas) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Cap DPR at 1.25 for large blurred mesh orbs to guarantee 60fps with zero GPU load
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
       width = window.innerWidth;
       height = window.innerHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -76,24 +120,21 @@ export function AnimatedBackground() {
 
     handleResize();
 
-    // Pointer move listener
     const handlePointerMove = (e: MouseEvent | TouchEvent) => {
       const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
       const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
-      mouse.targetX = (clientX - width / 2) / (width / 2);
-      mouse.targetY = (clientY - height / 2) / (height / 2);
+      mouse.targetX = clientX;
+      mouse.targetY = clientY;
     };
 
-    // Scroll listener for velocity calculation
     const handleScroll = () => {
       const now = performance.now();
       const currentScrollY = window.scrollY;
       const dt = Math.max(now - lastScrollTime, 16);
       const delta = Math.abs(currentScrollY - lastScrollY);
-      scrollVelocity = Math.min(delta / dt, 4.0);
+      scrollVelocity = Math.min(delta / dt, 3.5);
       lastScrollY = currentScrollY;
       lastScrollTime = now;
-      scrollY = currentScrollY;
     };
 
     window.addEventListener("resize", handleResize);
@@ -101,176 +142,83 @@ export function AnimatedBackground() {
     window.addEventListener("touchmove", handlePointerMove, { passive: true });
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    let time = 0;
-    let lastTime = performance.now();
     let isTabActive = !document.hidden;
-
-    const handleVisibilityChange = () => {
+    const handleVisibility = () => {
       isTabActive = !document.hidden;
       if (isTabActive) {
         lastTime = performance.now();
         loop(lastTime);
       }
     };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibility);
 
-    // Main 60 FPS Render Loop
+    let lastTime = performance.now();
+
     const loop = (currentTime: number) => {
       if (!isTabActive) return;
 
       const delta = currentTime - lastTime;
-      // Cap at 60 FPS
       if (delta < 14) {
         animationFrameId = requestAnimationFrame(loop);
         return;
       }
       lastTime = currentTime;
 
-      // Mouse lerp damping
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+      // Smooth mouse lerp
+      mouse.x += (mouse.targetX - mouse.x) * 0.04;
+      mouse.y += (mouse.targetY - mouse.y) * 0.04;
 
-      // Scroll velocity smoothing & decay
-      smoothedVelocity += (scrollVelocity - smoothedVelocity) * 0.1;
-      scrollVelocity *= 0.92;
+      // Scroll velocity smoothing
+      smoothedVelocity += (scrollVelocity - smoothedVelocity) * 0.08;
+      scrollVelocity *= 0.94;
 
-      // Advance wave time
-      const speedMultiplier = 1 + smoothedVelocity * 1.5;
-      time += prefersReducedMotion ? 0 : 0.012 * speedMultiplier;
+      const velocityBonus = smoothedVelocity * 1.8;
 
-      // Clear canvas
-      ctx.clearRect(0, 0, width, height);
+      // Clear with pure off-white base
+      ctx.fillStyle = "#FAFAFA";
+      ctx.fillRect(0, 0, width, height);
 
-      // 1. Render ambient floating stars
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        if (!prefersReducedMotion) {
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < 0) p.x = width;
-          if (p.x > width) p.x = 0;
-          if (p.y < 0) p.y = height;
-          if (p.y > height) p.y = 0;
+      // Render drifting mesh orbs
+      for (let i = 0; i < orbs.length; i++) {
+        const orb = orbs[i];
+        const t = prefersReducedMotion ? 0 : (currentTime * (1 + velocityBonus));
+
+        const cx =
+          width * orb.baseXRatio +
+          Math.sin(t * orb.speedX + orb.phase) * orb.driftRadiusX;
+        const cy =
+          height * orb.baseYRatio +
+          Math.cos(t * orb.speedY + orb.phase) * orb.driftRadiusY;
+
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, orb.radius);
+        for (const stop of orb.colorStops) {
+          grad.addColorStop(stop.stop, stop.color);
         }
 
+        ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(148, 163, 184, ${p.alpha})`;
+        ctx.arc(cx, cy, orb.radius, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // 2. Compute 3D grid projection
-      const centerX = width / 2 + mouse.x * 35;
-      const centerY = height * 0.68 + mouse.y * 25 - (scrollY * 0.08) % 40;
+      // Render interactive cursor spotlight orb
+      const cursorRadius = 380;
+      const cursorGrad = ctx.createRadialGradient(
+        mouse.x,
+        mouse.y,
+        0,
+        mouse.x,
+        mouse.y,
+        cursorRadius
+      );
+      cursorGrad.addColorStop(0, "rgba(219, 234, 254, 0.55)"); // Soft ambient cyan
+      cursorGrad.addColorStop(0.5, "rgba(237, 233, 254, 0.25)");
+      cursorGrad.addColorStop(1, "rgba(250, 250, 250, 0)");
 
-      // Temporary point buffer
-      const gridPoints: Array<Array<{ x: number; y: number; alpha: number }>> = [];
-
-      for (let r = 0; r < rows; r++) {
-        const rowArr: Array<{ x: number; y: number; alpha: number }> = [];
-        const z = r * spacingZ - cameraZ;
-
-        // Depth perspective scale
-        const scale = fov / (fov + z);
-        if (scale <= 0) continue;
-
-        for (let c = 0; c < cols; c++) {
-          const x = (c - cols / 2) * spacingX;
-
-          // Multi-frequency harmonic wave elevation
-          const waveFreqX = 0.0035;
-          const waveFreqZ = 0.0045;
-          const baseAmp = 38 + smoothedVelocity * 22;
-
-          let yElevation =
-            Math.sin(x * waveFreqX + time * 1.8) *
-              Math.cos(z * waveFreqZ + time * 1.4) *
-              baseAmp +
-            Math.sin((x + z) * 0.0025 + time * 0.8) * (baseAmp * 0.45);
-
-          // Localized mouse interaction ripple
-          const mouseWorldX = mouse.x * (width * 0.6);
-          const mouseDist = Math.hypot(x - mouseWorldX, z - 280);
-          if (mouseDist < 260) {
-            const ripple = Math.cos((mouseDist / 260) * Math.PI) * 28;
-            yElevation -= ripple;
-          }
-
-          const y3d = cameraY + yElevation;
-
-          // Projected 2D coordinates
-          const projX = centerX + x * scale;
-          const projY = centerY + y3d * scale;
-
-          // Depth fog alpha
-          const depthProgress = r / rows;
-          const alpha = Math.max(0, Math.sin(depthProgress * Math.PI) * 0.45);
-
-          rowArr.push({ x: projX, y: projY, alpha });
-        }
-        gridPoints.push(rowArr);
-      }
-
-      // 3. Render grid wireframe lines
-      // Lateral lines (row by row)
-      for (let r = 0; r < gridPoints.length; r++) {
-        const row = gridPoints[r];
-        if (row.length === 0) continue;
-
-        ctx.beginPath();
-        for (let c = 0; c < row.length - 1; c++) {
-          const p1 = row[c];
-          const p2 = row[c + 1];
-
-          ctx.moveTo(p1.x, p1.y);
-          ctx.lineTo(p2.x, p2.y);
-        }
-        const rowAlpha = row[Math.floor(row.length / 2)]?.alpha || 0.2;
-        ctx.strokeStyle = `rgba(56, 189, 248, ${rowAlpha * 0.35})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-
-      // Longitudinal lines (column connecting rows)
-      for (let c = 0; c < cols; c += 2) {
-        ctx.beginPath();
-        let started = false;
-        for (let r = 0; r < gridPoints.length; r++) {
-          const pt = gridPoints[r]?.[c];
-          if (!pt) continue;
-          if (!started) {
-            ctx.moveTo(pt.x, pt.y);
-            started = true;
-          } else {
-            ctx.lineTo(pt.x, pt.y);
-          }
-        }
-        ctx.strokeStyle = `rgba(99, 102, 241, 0.14)`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-
-      // 4. Render glowing node highlights
-      for (let r = 0; r < gridPoints.length; r += 2) {
-        const row = gridPoints[r];
-        for (let c = 0; c < row.length; c += 3) {
-          const pt = row[c];
-          if (!pt || pt.alpha < 0.12) continue;
-
-          ctx.beginPath();
-          ctx.arc(pt.x, pt.y, 1.8, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(56, 189, 248, ${pt.alpha * 0.85})`;
-          ctx.fill();
-
-          // Subtle glow bloom for foreground nodes
-          if (pt.alpha > 0.28) {
-            ctx.beginPath();
-            ctx.arc(pt.x, pt.y, 4.5, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(56, 189, 248, ${pt.alpha * 0.25})`;
-            ctx.fill();
-          }
-        }
-      }
+      ctx.fillStyle = cursorGrad;
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, cursorRadius, 0, Math.PI * 2);
+      ctx.fill();
 
       if (!prefersReducedMotion) {
         animationFrameId = requestAnimationFrame(loop);
@@ -285,41 +233,35 @@ export function AnimatedBackground() {
       window.removeEventListener("mousemove", handlePointerMove);
       window.removeEventListener("touchmove", handlePointerMove);
       window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
 
   return (
-    <>
-      {/* 1. Hardware-Accelerated Interactive Canvas (z: -20) */}
+    <div
+      className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden"
+      aria-hidden="true"
+    >
+      {/* 1. Fluid Ambient Mesh Canvas (Base Layer) */}
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 -z-20 w-screen h-screen pointer-events-none select-none"
-        aria-hidden="true"
+        className="absolute inset-0 w-full h-full"
       />
 
-      {/* 2. Deep Obsidian Ambient Scrim & Contrast Overlays (z: -10) */}
+      {/* 2. Persistent Frosted Diffusion & Noise Overlay */}
+      <div className="absolute inset-0 backdrop-blur-[60px] saturate-[140%] pointer-events-none" />
+
+      {/* 3. Subtle Tactile Dot Texture */}
       <div
-        className="fixed inset-0 -z-10 pointer-events-none select-none bg-[#07080C]/85 backdrop-blur-[0.5px]"
-        aria-hidden="true"
-      >
-        {/* Top radial ambient glow (Cyan / Sky) */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_55%_at_50%_-5%,rgba(56,189,248,0.12),transparent_75%)]" />
-
-        {/* Bottom accent ambient glow (Indigo / Violet) */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_80%_80%,rgba(99,102,241,0.08),transparent_70%)]" />
-
-        {/* Micro-dot grid for tactile texture */}
-        <div
-          className="absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage:
-              "radial-gradient(rgba(255, 255, 255, 0.45) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-      </div>
-    </>
+        className="absolute inset-0 opacity-[0.035] pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(#0F172A 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+    </div>
   );
 }
+
 
