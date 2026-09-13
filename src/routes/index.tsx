@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedBackground } from "@/components/portfolio/Background";
 import { Navbar, BackToTop } from "@/components/portfolio/Navbar";
 import {
-  Hero, About, Stats, Expertise, Experience, Projects,
-  Skills, Certifications, Testimonials, Contact, Footer, BigMarqueeBanner,
+  Hero, About, Experience, Skills, Projects,
+  Certifications, Testimonials, Contact, Footer,
 } from "@/components/portfolio/Sections";
 
 export const Route = createFileRoute("/")({
@@ -12,23 +12,21 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden text-foreground">
+    <div className="min-h-screen bg-white text-[#09090B] selection:bg-[#18181B] selection:text-white">
       <AnimatedBackground />
       <Navbar />
-      <Hero />
-      <BigMarqueeBanner text="Systems · Cloud · Security · Infrastructure" />
-      <About />
-      <Stats />
-      <Expertise />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Certifications />
-      <Testimonials />
-      <BigMarqueeBanner text="Available for Enterprise Roles — 2026" />
-      <Contact />
+      <main>
+        <Hero />
+        <About />
+        <Experience />
+        <Skills />
+        <Projects />
+        <Certifications />
+        <Testimonials />
+        <Contact />
+      </main>
       <Footer />
       <BackToTop />
-    </main>
+    </div>
   );
 }
