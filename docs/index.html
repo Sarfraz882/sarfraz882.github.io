@@ -26,10 +26,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800;12..96,900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800;12..96,900&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap"
     />
-    <script type="module" crossorigin src="./assets/github-pages-D32epRT-.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/github-pages-Bu32ivx2.css">
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var isDark = stored !== null ? stored === 'dark' : true;
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/github-pages-4SKRy2dX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/github-pages-IKj25lG-.css">
   </head>
   <body>
     <div id="root"></div>

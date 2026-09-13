@@ -2,17 +2,18 @@
 @source "../src";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -30,99 +31,77 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-highlight: var(--highlight);
   --color-ink: var(--ink);
   --color-paper: var(--paper);
   --color-lime: var(--lime);
   --color-mist: var(--mist);
-  --font-display: "Bricolage Grotesque", "Space Grotesk", sans-serif;
-  --font-serif-italic: "Instrument Serif", "Times New Roman", serif;
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Bricolage Grotesque", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif-italic: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
   --radius: 1.25rem;
-  /* High-end futuristic dark mode as primary theme */
-  --background: #08090d;
-  --foreground: #f1f5f9;
-  --ink: #ffffff;
-  --paper: #0f172a;
-  --card: rgba(15, 23, 42, 0.7);
-  --card-foreground: #f8fafc;
-  --popover: #0f172a;
-  --popover-foreground: #f8fafc;
-  --primary: #22d3ee;
-  --primary-foreground: #020617;
-  --secondary: rgba(30, 41, 59, 0.6);
-  --secondary-foreground: #e2e8f0;
-  --muted: rgba(30, 41, 59, 0.5);
-  --muted-foreground: #94a3b8;
-  --accent: #38bdf8;
-  --accent-foreground: #020617;
+  /* Crisp, high-contrast monochrome studio light theme (matching arbaazcodes.github.io) */
+  --background: #ffffff;
+  --foreground: #18181b;
+  --surface: #fafafa;
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+  --primary: #18181b;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #18181b;
+  --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #22d3ee;
-  --lime: #22d3ee; /* Electric Cyan accent */
-  --electric: #3b82f6; /* Electric Blue accent */
-  --mist: #1e293b;
+  --border: rgba(24, 24, 27, 0.1);
+  --input: rgba(24, 24, 27, 0.12);
+  --ring: #18181b;
+  --highlight: #10b981;
+  --ink: #18181b;
+  --paper: #ffffff;
+  --lime: #10b981;
+  --mist: #f4f4f5;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -10px rgba(0, 0, 0, 0.08);
 }
 
 .dark {
-  --background: #06070a;
-  --foreground: #f1f5f9;
-  --ink: #ffffff;
-  --paper: #0d1322;
-  --card: rgba(13, 19, 34, 0.75);
-  --card-foreground: #f8fafc;
-  --popover: #0d1322;
-  --popover-foreground: #f8fafc;
-  --primary: #22d3ee;
-  --primary-foreground: #020617;
-  --secondary: rgba(26, 36, 56, 0.7);
-  --secondary-foreground: #e2e8f0;
-  --muted: rgba(26, 36, 56, 0.6);
-  --muted-foreground: #94a3b8;
-  --accent: #38bdf8;
-  --accent-foreground: #020617;
-  --border: rgba(255, 255, 255, 0.09);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #22d3ee;
-  --lime: #22d3ee;
-  --electric: #3b82f6;
-  --mist: #172136;
+  /* Deep pitch black dark theme (matching #09090b / #030712 developer aesthetic) */
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  --surface: rgba(23, 23, 23, 0.65);
+  --card: rgba(23, 23, 23, 0.6);
+  --card-foreground: #fafafa;
+  --popover: #121215;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #09090b;
+  --secondary: rgba(38, 38, 38, 0.6);
+  --secondary-foreground: #fafafa;
+  --muted: rgba(38, 38, 38, 0.6);
+  --muted-foreground: #a1a1aa;
+  --accent: #fafafa;
+  --accent-foreground: #09090b;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #2dd4bf;
+  --highlight: #2dd4bf;
+  --ink: #fafafa;
+  --paper: #121215;
+  --lime: #34d399;
+  --mist: rgba(38, 38, 38, 0.6);
+  --shadow-card: 0 4px 24px -1px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
 }
-
-body {
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34, 211, 238, 0.12), transparent 70%),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(59, 130, 246, 0.08), transparent),
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
-}
-
-.paper-card {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.75), rgba(10, 10, 14, 0.65));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
-  backdrop-filter: blur(18px) saturate(160%);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-}
-
-.paper-card:hover {
-  border-color: rgba(34, 211, 238, 0.35);
-  box-shadow: 0 10px 36px -4px rgba(0, 0, 0, 0.75), 0 0 24px rgba(34, 211, 238, 0.1), 0 0 0 1px rgba(34, 211, 238, 0.2) inset;
-}
-
-.pill {
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-}
-
 
 @layer base {
   * {
@@ -130,27 +109,86 @@ body {
   }
   html {
     scroll-behavior: smooth;
+    color-scheme: light;
+  }
+  html.dark {
     color-scheme: dark;
   }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
-    background-attachment: fixed;
     overflow-x: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.045em;
-    font-weight: 800;
-    color: var(--ink);
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    color: var(--color-foreground);
   }
+
   ::selection {
-    background: #22d3ee;
-    color: #020617;
+    background-color: var(--color-foreground);
+    color: var(--color-background);
   }
+}
+
+header.studio-header {
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.05);
+}
+
+.dark header.studio-header {
+  background: rgba(24, 24, 27, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.35);
+}
+
+.paper-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  border-radius: 1.5rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.paper-card:hover {
+  border-color: rgba(24, 24, 27, 0.25);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08);
+}
+
+.dark .paper-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.7);
+}
+
+.pill {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(16px);
+}
+.dark .glass {
+  background: rgba(24, 24, 27, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+}
+
+.glow-ring {
+  box-shadow: 0 0 0 1px var(--color-border);
 }
 
 @utility font-mono {
@@ -165,18 +203,31 @@ body {
   letter-spacing: -0.02em;
 }
 
+@utility text-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+
+@utility text-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+  font-weight: 600;
+}
+
 @utility text-lime {
   color: var(--lime);
 }
 
 @utility text-cyan-glow {
-  color: #22d3ee;
-  text-shadow: 0 0 16px rgba(34, 211, 238, 0.4);
+  color: var(--color-foreground);
 }
 
 @utility text-blue-glow {
-  color: #38bdf8;
-  text-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+  color: var(--color-foreground);
 }
 
 @utility micro-label {
@@ -188,15 +239,15 @@ body {
 }
 
 @utility glow-border {
-  border: 1px solid rgba(34, 211, 238, 0.25);
-  box-shadow: 0 0 15px -3px rgba(34, 211, 238, 0.15), inset 0 0 10px -2px rgba(34, 211, 238, 0.05);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 0 15px -3px rgba(0, 0, 0, 0.05);
 }
 
 @utility glow-pill {
   border-radius: 9999px;
-  border: 1px solid rgba(34, 211, 238, 0.25);
-  background: rgba(15, 23, 42, 0.75);
-  box-shadow: 0 0 15px rgba(34, 211, 238, 0.15);
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(14px);
 }
 
@@ -205,7 +256,7 @@ body {
   100% { transform: translateX(-50%); }
 }
 @utility animate-marquee {
-  animation: marquee 32s linear infinite;
+  animation: marquee 35s linear infinite;
 }
 
 @keyframes floaty {
@@ -223,3 +274,12 @@ body {
 @utility animate-pulse-glow {
   animation: pulse-glow 4s ease-in-out infinite;
 }
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@utility animate-cursor {
+  animation: cursor-blink 0.9s infinite ease-in-out;
+}
+

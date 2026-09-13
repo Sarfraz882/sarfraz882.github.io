@@ -1,28 +1,47 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { ArrowUp, FileText, Menu, Moon, Sun, X } from "lucide-react";
+import { ArrowUp, FileText, Menu, Moon, Sun, X, Mail } from "lucide-react";
 
 const assetBase = import.meta.env.BASE_URL;
 const portraitUrl = `${assetBase}assets/sarfraaj-portrait.jpg`;
 const resumeUrl = `${assetBase}assets/Sarfraaj-Khan-Resume.pdf`;
 
 function useTheme() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    try {
+      const stored = localStorage.getItem("theme");
+      if (stored !== null) return stored === "dark";
+      return document.documentElement.classList.contains("dark");
+    } catch {
+      return true;
+    }
+  });
+
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    // Default to dark mode for futuristic aesthetic
-    const isDark = stored ? stored === "dark" : true;
-    setDark(isDark);
-    document.documentElement.classList.toggle("dark", isDark);
+    try {
+      const stored = localStorage.getItem("theme");
+      const isDark = stored !== null ? stored === "dark" : document.documentElement.classList.contains("dark");
+      setDark(isDark);
+      document.documentElement.classList.toggle("dark", isDark);
+    } catch (e) {
+      console.error(e);
+    }
   }, []);
+
   const toggle = () => {
-    setDark((d) => {
-      const next = !d;
+    setDark((prev) => {
+      const next = !prev;
       document.documentElement.classList.toggle("dark", next);
-      localStorage.setItem("theme", next ? "dark" : "light");
+      try {
+        localStorage.setItem("theme", next ? "dark" : "light");
+      } catch (e) {
+        console.error(e);
+      }
       return next;
     });
   };
+
   return { dark, toggle };
 }
 
@@ -31,7 +50,7 @@ const NAV = [
   { id: "skills", label: "Skills" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
-  { id: "certifications", label: "Certs" },
+  { id: "certifications", label: "Certifications" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -43,82 +62,89 @@ export function Navbar() {
 
   return (
     <>
-      {/* Top Futuristic Scroll Progress Indicator */}
+      {/* Top Fixed Scroll Indicator (matching arbaazcodes) */}
       <motion.div
         style={{ scaleX: progress }}
-        className="fixed top-0 left-0 right-0 h-[2.5px] origin-left z-[60] bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 shadow-[0_0_12px_rgba(34,211,238,0.7)]"
+        className="fixed inset-x-0 top-0 z-[110] h-[2px] origin-left bg-foreground/70 pointer-events-none"
+        aria-hidden="true"
       />
 
-      <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[min(1200px,94%)]">
-        <div className="rounded-full border border-white/10 bg-[#0c101c]/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.6),0_0_20px_rgba(34,211,238,0.06)] flex items-center justify-between pl-3 pr-2.5 py-2 transition-all">
-          <a href="#top" className="flex items-center gap-2.5 group">
-            <span className="relative h-8 w-8 rounded-full overflow-hidden ring-1 ring-cyan-500/30 group-hover:ring-cyan-400 transition-all">
+      {/* Sticky, floating pill-style navbar centered at the top */}
+      <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[min(1120px,94%)]">
+        <div className="backdrop-blur-md bg-white/75 dark:bg-black/45 border border-black/10 dark:border-white/10 rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-between transition-all">
+          {/* Brand & Interactive Status Pill */}
+          <a href="#top" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none">
+            <div className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full overflow-hidden border border-foreground/15 shadow-sm group-hover:scale-105 transition-transform">
               <img src={portraitUrl} alt="Sarfraaj Khan" className="h-full w-full object-cover" />
-              <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-[#0c101c]" />
-            </span>
-            <div className="flex flex-col text-left">
-              <span className="font-display font-bold text-sm tracking-tight text-white group-hover:text-cyan-400 transition-colors">
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-display font-bold text-sm sm:text-base tracking-tight text-foreground">
                 Sarfraaj Khan
               </span>
-              <span className="font-mono text-[9.5px] tracking-[0.16em] uppercase text-cyan-400/80 -mt-0.5">
-                IT Support · SysAdmin
+              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-surface/80 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
+                Available for opportunities
               </span>
             </div>
           </a>
 
+          {/* Centered Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
             {NAV.map((n) => (
               <a
                 key={n.id}
                 href={`#${n.id}`}
-                className="px-3.5 py-1.5 text-[13px] text-slate-300 hover:text-cyan-300 rounded-full hover:bg-white/[0.06] transition-all"
+                className="px-3 py-1.5 font-sans text-[13px] font-medium text-muted-foreground hover:text-foreground rounded-full hover:bg-foreground/5 transition-colors"
               >
                 {n.label}
               </a>
             ))}
           </nav>
 
+          {/* Action Group: Theme Toggle & Resume */}
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setOpen((v) => !v)}
-              aria-label="Menu"
-              className="md:hidden h-9 w-9 grid place-items-center rounded-full border border-white/10 bg-white/5 text-slate-200 hover:text-white"
-            >
-              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
+            {/* Theme Toggle Button */}
             <button
               onClick={toggle}
-              aria-label="Toggle theme"
-              className="h-9 w-9 grid place-items-center rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/30 transition-all"
+              aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+              title={dark ? "Switch to light mode" : "Switch to dark mode"}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-border/80 bg-surface/60 text-foreground transition-all duration-200 hover:bg-foreground/10 hover:border-foreground/40 active:scale-95 cursor-pointer"
             >
-              {dark ? <Sun className="h-4 w-4 text-amber-300" /> : <Moon className="h-4 w-4 text-cyan-300" />}
+              {dark ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-foreground" />}
             </button>
-            <a
-              href="#contact"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] uppercase tracking-[0.16em] font-mono border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all"
-            >
-              Contact
-            </a>
+
+            {/* Resume Button */}
             <a
               href={resumeUrl}
               download="Sarfraaj-Khan-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[11px] uppercase tracking-[0.16em] font-mono font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:opacity-95 shadow-[0_0_15px_rgba(34,211,238,0.35)] transition-all"
+              className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-3.5 sm:px-4 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-background transition-all duration-200 hover:bg-foreground/85 active:scale-95 shadow-sm"
             >
-              <FileText className="h-3.5 w-3.5" /> Resume
+              <FileText className="h-3.5 w-3.5" />
+              <span>Resume</span>
             </a>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle navigation menu"
+              className="md:hidden flex h-9 w-9 items-center justify-center rounded-full border border-border/80 bg-surface/60 text-foreground hover:bg-foreground/10 transition-all cursor-pointer"
+            >
+              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
           </div>
         </div>
 
+        {/* Mobile Collapsible Drawer */}
         {open && (
-          <div className="md:hidden mt-2 rounded-2xl border border-white/10 bg-[#0c101c]/95 backdrop-blur-2xl p-2.5 shadow-2xl flex flex-col gap-1">
+          <div className="md:hidden mt-2 rounded-2xl border border-border/80 bg-popover/95 backdrop-blur-2xl px-5 py-4 shadow-2xl flex flex-col gap-1.5 animate-in fade-in duration-200">
             {NAV.map((n) => (
               <a
                 key={n.id}
                 href={`#${n.id}`}
                 onClick={() => setOpen(false)}
-                className="px-3.5 py-2 text-sm text-slate-200 hover:text-cyan-300 hover:bg-white/5 rounded-xl transition-all"
+                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-foreground/5 rounded-xl transition-all"
               >
                 {n.label}
               </a>
@@ -142,9 +168,10 @@ export function BackToTop() {
     <button
       aria-label="Back to top"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed bottom-6 right-6 z-50 h-11 w-11 grid place-items-center rounded-full bg-[#0c101c] border border-cyan-500/40 text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:scale-110 hover:border-cyan-300 transition-all"
+      className="fixed bottom-6 right-6 z-50 h-11 w-11 grid place-items-center rounded-full bg-card border border-border/80 text-foreground shadow-lg hover:scale-110 hover:border-foreground/40 transition-all cursor-pointer"
     >
       <ArrowUp className="h-4 w-4" />
     </button>
   );
 }
+
